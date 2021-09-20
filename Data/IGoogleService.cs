@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace GoogleCloudServiceAPI.Data
 {
-    interface IGoogleService
+    public interface IGoogleService
     {
-        string GetTranaslateWord();
+        Task<string> GetTranaslateWord(string word);
         string GetSpeechWord();
     }
 }

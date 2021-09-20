@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
+using Flurl;
 
 namespace GoogleCloudServiceAPI.Data
 {
@@ -21,9 +23,17 @@ namespace GoogleCloudServiceAPI.Data
             throw new NotImplementedException();
         }
 
-        public string GetTranaslateWord()
+        public async Task<string> GetTranaslateWord(string word)
         {
-            throw new NotImplementedException();
+            string url = "https://www.googleapis.com/language/translate/v2"
+                .SetQueryParam("key", GOOGLE_TRANSLATE_KEY)
+                .SetQueryParam("q", word)
+                .SetQueryParam("&source=en&target=pl");
+
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
