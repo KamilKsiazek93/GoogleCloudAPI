@@ -6,7 +6,6 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Flurl;
 using System.Net.Http.Json;
-using System.IO;
 
 namespace GoogleCloudServiceAPI.Data
 {
@@ -51,7 +50,6 @@ namespace GoogleCloudServiceAPI.Data
             var responseContent = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
             return responseContent;
-
         }
     }
 }
