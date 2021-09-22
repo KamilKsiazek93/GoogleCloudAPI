@@ -19,9 +19,15 @@ namespace GoogleCloudServiceAPI.Controllers
             _googleService = googleService;
         }
         [HttpGet]
-        public async Task<string> TestMethod(string q)
+        public async Task<string> GetTranslateWord(string word)
         {
-            return await _googleService.GetTranaslateWord(q);
+            return await _googleService.GetTranaslateWord(word);
+        }
+
+        [HttpPost]
+        public async Task<string> GetSpeechWord(string word)
+        {
+            return await _googleService.GetSpeechWord(word);
         }
     }
 }

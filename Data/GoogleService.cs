@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Flurl;
+using System.Net.Http.Json;
 
 namespace GoogleCloudServiceAPI.Data
 {
@@ -18,10 +19,6 @@ namespace GoogleCloudServiceAPI.Data
             GOOGLE_SPEECH_KEY = configuration["GoogleCloudSecretKey:Speech"];
             GOOGLE_TRANSLATE_KEY = configuration["GoogleCloudSecretKey:Translate"];
         }
-        public string GetSpeechWord()
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<string> GetTranaslateWord(string word)
         {
@@ -34,6 +31,25 @@ namespace GoogleCloudServiceAPI.Data
             var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> GetSpeechWord(string word)
+        {
+            string url = "https://texttospeech.googleapis.com/v1/text:synthesize"
+                .SetQueryParam("key", GOOGLE_SPEECH_KEY);
+           
+            Input input = new Input(word);
+            Voice voice = new Voice("en-Us", "en-Us-Wavenet-J", "MALE");
+            AudioConfig audioConfig = new AudioConfig("MP3");
+            SpeechParamModel paramModel = new SpeechParamModel(input, voice, audioConfig);
+
+            JsonContent content = JsonContent.Create(paramModel);
+            HttpClient client = new HttpClient();
+
+            var response = await client.PostAsync(url, content);
+            var responseContent = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            return responseContent;
         }
     }
 }

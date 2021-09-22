@@ -8,6 +8,6 @@ namespace GoogleCloudServiceAPI.Data
     public interface IGoogleService
     {
         Task<string> GetTranaslateWord(string word);
-        string GetSpeechWord();
+        Task<string> GetSpeechWord(string word);
     }
 }
