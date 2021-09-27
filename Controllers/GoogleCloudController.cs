@@ -18,13 +18,13 @@ namespace GoogleCloudServiceAPI.Controllers
         {
             _googleService = googleService;
         }
-        [HttpGet]
+        [HttpGet("translate")]
         public async Task<string> GetTranslateWord(string word)
         {
             return await _googleService.GetTranaslateWord(word);
         }
 
-        [HttpPost]
+        [HttpGet("speech")]
         public async Task<string> GetSpeechWord(string word)
         {
             return await _googleService.GetSpeechWord(word);

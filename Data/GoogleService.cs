@@ -41,6 +41,7 @@ namespace GoogleCloudServiceAPI.Data
             Input input = new Input(word);
             Voice voice = new Voice("en-Us", "en-Us-Wavenet-J", "MALE");
             AudioConfig audioConfig = new AudioConfig("MP3");
+
             SpeechParamModel paramModel = new SpeechParamModel(input, voice, audioConfig);
 
             JsonContent content = JsonContent.Create(paramModel);
